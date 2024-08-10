@@ -25,7 +25,9 @@ runs:
   steps:
     - name: Install Linux dependencies
       shell: bash
-      if: ${{ runner.os == 'linux' }}
+      # Exclude self-hosted runners, they should come with this pre-installed. (This is largely a
+      # workaround, since running `sudo` on grapefruit opens a prompt.)
+      if: ${{ runner.os == 'linux' && runner.environment != 'self-hosted' }}
       run: >
         sudo apt-get update
 

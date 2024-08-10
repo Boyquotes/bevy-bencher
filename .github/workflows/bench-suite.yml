@@ -57,7 +57,7 @@ jobs:
       - name: Output Self-Hosted
         id: self-hosted
         if: ${{ inputs.self-hosted-runner }}
-        run: echo "runner=[self-hosted, Linux]" >> $GITHUB_OUTPUT
+        run: echo "runner=self-hosted" >> $GITHUB_OUTPUT
 
   bench:
     name: Run benchmarks
