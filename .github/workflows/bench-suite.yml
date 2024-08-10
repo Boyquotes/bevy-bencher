@@ -3,6 +3,18 @@ name: Benchmark suite
 on:
   workflow_call:
     inputs:
+      self-hosted-runner:
+        description: |
+          If true, runs the benchmark job on a quiet self-hosted runner.
+
+          This is desired if you need accurate benchmarks, since Github-provided runners are quite
+          noisy. This is false by default, since there is a limited supply of self-hosted runners.
+
+          This will not switch the `file-size` job to self-hosted, since file size is not
+          performance-dependent.
+        required: false
+        default: false
+        type: boolean
       bevy-dep:
         description: |
           If specified, replaces the dependency on Bevy in `Cargo.toml` with a custom TOML value.
@@ -31,9 +43,26 @@ env:
   CARGO_TERM_COLOR: always
 
 jobs:
+  find-runner:
+    name: Find runner label
+    runs-on: ubuntu-22.04
+    outputs:
+      runner: ${{ steps.ubuntu.outputs.runner || steps.self-hosted.outputs.runner }}
+    steps:
+      - name: Output Ubuntu
+        id: ubuntu
+        if: ${{ !inputs.self-hosted-runner }}
+        run: echo "runner=ubuntu-22.04" >> $GITHUB_OUTPUT
+
+      - name: Output Self-Hosted
+        id: self-hosted
+        if: ${{ inputs.self-hosted-runner }}
+        run: echo "runner=[self-hosted, Linux]" >> $GITHUB_OUTPUT
+
   bench:
     name: Run benchmarks
-    runs-on: ubuntu-22.04
+    needs: [find-runner]
+    runs-on: ${{ needs.find-runner.outputs.runner }}
     outputs:
       bevy-metadata: ${{ steps.bevy-metadata.outputs.metadata }}
     steps:
