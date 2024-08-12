@@ -1,3 +1,4 @@
+mod app;
 mod ecs;
 
 use criterion::criterion_main;
@@ -10,4 +11,4 @@ pub(crate) fn create_prng() -> impl Rng {
     SmallRng::seed_from_u64(0x7df09deb486e920a)
 }
 
-criterion_main!(ecs::group);
+criterion_main!(app::group, ecs::group);
