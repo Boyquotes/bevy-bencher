@@ -16,6 +16,7 @@ jobs:
     uses: ./.github/workflows/bench-suite.yml
     with:
       bevy-dep: '{ git = "https://github.com/bevyengine/bevy.git", rev = "refs/pull/${{ inputs.pr-number }}/head" }'
+      self-hosted-runner: true
 
   upload-to-bencher-dry:
     name: Upload results to Bencher in a dry run
