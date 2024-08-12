@@ -45,14 +45,14 @@ env:
 jobs:
   find-runner:
     name: Find runner label
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     outputs:
       runner: ${{ steps.ubuntu.outputs.runner || steps.self-hosted.outputs.runner }}
     steps:
       - name: Output Ubuntu
         id: ubuntu
         if: ${{ !inputs.self-hosted-runner }}
-        run: echo "runner=ubuntu-22.04" >> $GITHUB_OUTPUT
+        run: echo "runner=ubuntu-latest" >> $GITHUB_OUTPUT
 
       - name: Output Self-Hosted
         id: self-hosted
@@ -124,7 +124,7 @@ jobs:
 
   file-size:
     name: Track file size
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4

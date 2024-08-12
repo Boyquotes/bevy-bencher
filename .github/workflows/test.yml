@@ -16,7 +16,7 @@ jobs:
 
   upload-to-bencher-dry:
     name: Upload results to Bencher in a dry run
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     needs: run-bench-suite
     steps:
       - name: Checkout repository

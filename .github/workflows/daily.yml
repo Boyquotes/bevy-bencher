@@ -16,7 +16,7 @@ jobs:
 
   upload-to-bencher:
     name: Upload results to Bencher
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     needs: run-bench-suite
     steps:
       - name: Checkout repository
@@ -68,7 +68,7 @@ jobs:
 
   deploy-criterion-report:
     name: Deploy Criterion report
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     needs: run-bench-suite
     environment:
       name: github-pages
