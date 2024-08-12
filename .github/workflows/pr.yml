@@ -50,7 +50,7 @@ jobs:
         env:
           BENCHER_PROJECT: bevy
           BENCHER_API_TOKEN: ${{ secrets.BENCHER_API_TOKEN }}
-          BENCHER_TESTBED: github-actions
+          BENCHER_TESTBED: grapefruit
         run: |
           bencher run \
             --dry-run \
